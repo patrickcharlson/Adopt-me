@@ -17,8 +17,9 @@ export default class Carousel extends Component {
 		return (
 			<div className="carousel">
 				<img src={images[active]} alt="animal" />
-				<div className="carousel-smaller">
+				<div role="button" className="carousel-smaller">
 					{images.map((photo, index) => (
+						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
 						<img
 							src={photo}
 							key={photo}

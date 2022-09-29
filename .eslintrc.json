@@ -1,17 +1,16 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
-  "parser": "babel-eslint",
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
-    "airbnb",
-    "prettier",
-    "prettier/react"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "overrides": [
   ],
@@ -22,9 +21,18 @@
   "plugins": [
     "react",
     "jsx-a11y",
-    "import"
+    "import",
+    "react-hooks"
   ],
   "rules": {
-    "react/prop-types": 0
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

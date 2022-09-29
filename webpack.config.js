@@ -9,7 +9,7 @@ module.exports = function(_env, argv) {
 
 
   return {
-    entry: "./src/index.js",
+    entry: "./src/index.jsx",
     devtool: isDevelopment && "source-map",
     output: {
       path: path.resolve(__dirname, "dist"),

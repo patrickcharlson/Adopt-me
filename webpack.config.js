@@ -35,10 +35,10 @@ module.exports = function(_env, argv) {
           exclude: /node_modules/
         },
         {
-          test: /\.css$/,
+          test: /\.css$/i,
           use: [
             isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-            "css-loader"
+            "css-loader", "postcss-loader"
           ]
         }
       ]

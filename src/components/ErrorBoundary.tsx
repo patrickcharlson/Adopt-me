@@ -1,7 +1,11 @@
-import { Component } from 'react';
+import React, { Component, ErrorInfo } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
-export default class ErrorBoundary extends Component {
+interface IProps {
+	children: React.ReactNode;
+}
+
+export default class ErrorBoundary extends Component<IProps> {
 	state = {
 		hasError: false,
 		redirect: false,
@@ -25,8 +29,8 @@ export default class ErrorBoundary extends Component {
 		}
 	}
 
-	componentDidCatch(error, errorInfo) {
-		console.error('ErrorBoundary caught an error', error, errorInfo);
+	componentDidCatch(error: Error, info: ErrorInfo): void {
+		console.error('ErrorBoundary caught an error', error, info);
 	}
 
 	render() {

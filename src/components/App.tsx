@@ -1,9 +1,9 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import ThemeContext from './ThemeContext.jsx';
+import ThemeContext from './ThemeContext';
 
-const Details = lazy(() => import('./Details.jsx'));
-const SearchParams = lazy(() => import('./SearchParams.jsx'));
+const Details = lazy(() => import('./Details'));
+const SearchParams = lazy(() => import('./SearchParams'));
 const App = () => {
 	const theme = useState('darkblue');
 

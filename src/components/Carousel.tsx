@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 
-export default class Carousel extends Component {
+interface IProps {
+	images: string[];
+}
+
+export default class Carousel extends Component<IProps> {
 	state = {
 		active: 0,
 	};
@@ -9,10 +13,16 @@ export default class Carousel extends Component {
 		images: ['https://pets-images.dev-apis.com/pets/none.jpg'],
 	};
 
-	handleIndexClick = (e) => {
-		this.setState({
-			active: +e.target.dataset.index,
-		});
+	handleIndexClick = (e: MouseEvent<HTMLElement>): void => {
+		if (!(e.target instanceof HTMLElement)) {
+			return;
+		}
+
+		if (e.target.dataset.index) {
+			this.setState({
+				active: +e.target.dataset.index,
+			});
+		}
 	};
 
 	render() {

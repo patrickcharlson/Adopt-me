@@ -1,20 +1,28 @@
 import React, { Component, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-import Carousel from './Carousel.jsx';
-import ErrorBoundary from './ErrorBoundary.jsx';
-import ThemeContext from './ThemeContext.jsx';
+import { PetAPIResponse } from '../APIResponsesTypes';
+import Carousel from './Carousel';
+import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 
-const Modal = lazy(() => import('./Modal.tsx'));
+const Modal = lazy(() => import('./Modal'));
 
-class Details extends Component {
+class Details extends Component<{ params: { id?: string } }> {
 	state = {
 		loading: true,
 		showModal: false,
+		animal: '',
+		breed: '',
+		city: '',
+		state: '',
+		description: '',
+		name: '',
+		images: [] as string[],
 	};
 
 	async componentDidMount() {
 		const res = await fetch(`https://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`);
-		const json = await res.json();
+		const json = (await res.json()) as PetAPIResponse;
 		this.setState({
 			loading: false,
 			...json.pets[0],
@@ -25,6 +33,7 @@ class Details extends Component {
 		this.setState({
 			showModal: !this.state.showModal,
 		});
+	adopt = () => (window.location.href = 'https://bit.ly/pet-adopt');
 
 	render() {
 		if (this.state.loading) {
@@ -33,7 +42,7 @@ class Details extends Component {
 		const { animal, breed, city, state, description, name, images, showModal } = this.state;
 
 		return (
-			<div className="details">
+			<div className='details'>
 				<Carousel images={images} />
 				<div>
 					<h1>{name}</h1>
@@ -69,7 +78,7 @@ class Details extends Component {
 }
 
 function WrappedDetails() {
-	const params = useParams();
+	const params = useParams<{ id: string }>();
 	return (
 		<ErrorBoundary>
 			<Details params={params} />

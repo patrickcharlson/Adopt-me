@@ -1,7 +1,8 @@
-import React from 'react';
-import Pet from './Pet.jsx';
+import React, { FunctionComponent } from 'react';
+import { Pet as PetType } from '../APIResponsesTypes';
+import Pet from './Pet';
 
-function Results({ pets }) {
+const Results: FunctionComponent<{ pets: PetType[] }> = ({ pets }) => {
 	return (
 		<div className='grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
 			{!pets.length ? (
@@ -21,6 +22,6 @@ function Results({ pets }) {
 			)}
 		</div>
 	);
-}
+};
 
 export default Results;

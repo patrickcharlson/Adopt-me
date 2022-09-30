@@ -2,29 +2,41 @@ import { Component } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
 export default class ErrorBoundary extends Component {
-	state = { hasError: false, redirect: false };
+	state = {
+		hasError: false,
+		redirect: false,
+	};
 
 	static getDerivedStateFromError() {
-		return { hasError: true };
+		return {
+			hasError: true,
+		};
+	}
+
+	componentDidUpdate() {
+		if (this.state.hasError) {
+			setTimeout(
+				() =>
+					this.setState({
+						redirect: true,
+					}),
+				5000
+			);
+		}
 	}
 
 	componentDidCatch(error, errorInfo) {
 		console.error('ErrorBoundary caught an error', error, errorInfo);
 	}
 
-	componentDidUpdate() {
-		if (this.state.hasError) {
-			setTimeout(() => this.setState({ redirect: true }), 5000);
-		}
-	}
-
 	render() {
 		if (this.state.redirect) {
-			return <Navigate to="/" />;
-		} else if (this.state.hasError) {
+			return <Navigate to='/' />;
+		}
+		if (this.state.hasError) {
 			return (
 				<h2>
-					There was an error with this listing. <Link to="/">Click here</Link> to back to the home page or wait five
+					There was an error with this listing. <Link to='/'>Click here</Link> to back to the home page or wait five
 					seconds.
 				</h2>
 			);

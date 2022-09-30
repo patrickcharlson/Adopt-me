@@ -12,6 +12,7 @@ export default function useBreedList(animal) {
 		} else if (localCache[animal]) {
 			setBreedList(localCache[animal]);
 		} else {
+			// eslint-disable-next-line no-use-before-define
 			requestBreedList();
 		}
 

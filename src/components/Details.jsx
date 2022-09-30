@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import Carousel from './Carousel.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
-import Modal from './Modal.jsx';
 import ThemeContext from './ThemeContext.jsx';
 
+const Modal = lazy(() => import('./Modal.tsx'));
+
 class Details extends Component {
-	state = { loading: true, showModal: false };
+	state = {
+		loading: true,
+		showModal: false,
+	};
 
 	async componentDidMount() {
 		const res = await fetch(`https://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`);
 		const json = await res.json();
-		this.setState(Object.assign({ loading: false }, json.pets[0]));
+		this.setState({
+			loading: false,
+			...json.pets[0],
+		});
 	}
 
-	toggleModal = () => this.setState({ showModal: !this.state.showModal });
+	toggleModal = () =>
+		this.setState({
+			showModal: !this.state.showModal,
+		});
 
 	render() {
 		if (this.state.loading) {
@@ -30,7 +40,12 @@ class Details extends Component {
 					<h2>{`${animal} - ${breed} - ${city} - ${state}`}</h2>
 					<ThemeContext.Consumer>
 						{([theme]) => (
-							<button onClick={this.toggleModal} style={{ backgroundColor: theme }}>
+							<button
+								onClick={this.toggleModal}
+								style={{
+									backgroundColor: theme,
+								}}
+							>
 								Adopt {name}
 							</button>
 						)}
@@ -40,8 +55,8 @@ class Details extends Component {
 						<Modal>
 							<div>
 								<h1>Would you like to adopt {name}?</h1>
-								<div className="buttons">
-									<a href="https://bit.ly/pet-adopt">Yes</a>
+								<div className='buttons'>
+									<a href='https://bit.ly/pet-adopt'>Yes</a>
 									<button onClick={this.toggleModal}>No</button>
 								</div>
 							</div>
@@ -53,13 +68,13 @@ class Details extends Component {
 	}
 }
 
-const WrappedDetails = () => {
+function WrappedDetails() {
 	const params = useParams();
 	return (
 		<ErrorBoundary>
 			<Details params={params} />
 		</ErrorBoundary>
 	);
-};
+}
 
 export default WrappedDetails;

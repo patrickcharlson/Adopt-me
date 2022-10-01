@@ -42,7 +42,7 @@ class Details extends Component<{ params: { id?: string } }> {
 
     return (
       <>
-        <div className="container mx-auto">
+        <div className="container mx-auto mt-8">
           <div className="flex justify-center">
             <div className="flex flex-col md:flex-row h-full rounded-lg bg-white shadow-lg">
               <div className="w-1/2 p-6">

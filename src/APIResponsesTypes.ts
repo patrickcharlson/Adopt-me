@@ -1,6 +1,6 @@
 export type Animal = 'dog' | 'cat' | 'bird' | 'reptile' | 'rabbit';
 
-export interface Pet {
+export interface IPet {
 	id: number;
 	name: string;
 	animal: Animal;
@@ -11,15 +11,15 @@ export interface Pet {
 	state: string;
 }
 
-export interface PetAPIResponse {
+export interface IPetAPIResponse {
 	numberOfResults: number;
 	startIndex: number;
 	endIndex: number;
 	hasNext: boolean;
-	pets: Pet[];
+	pets: IPet[];
 }
 
-export interface BreedListAPIResponse {
+export interface IBreedListAPIResponse {
 	animal: Animal;
 	breeds: string[];
 }

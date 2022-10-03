@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Animal, BreedListAPIResponse } from '../APIResponsesTypes';
+import { Animal, IBreedListAPIResponse } from '../APIResponsesTypes';
 
 const localCache: {
 	[index: string]: string[];
@@ -25,7 +25,7 @@ export default function useBreedList(animal: Animal): [string[], Status] {
 			setBreedList([]);
 			setStatus('loading');
 			const res = await fetch(`https://pets-v2.dev-apis.com/breeds?animal=${animal}`);
-			const json = (await res.json()) as BreedListAPIResponse;
+			const json = (await res.json()) as IBreedListAPIResponse;
 			localCache[animal] = json.breeds || [];
 			setBreedList(localCache[animal]);
 			setStatus('loaded');

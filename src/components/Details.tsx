@@ -1,15 +1,12 @@
-import React, { Component, lazy } from 'react';
+import React, { Component } from 'react';
 import { useParams } from 'react-router-dom';
 import Carousel from './Carousel';
-import { PetAPIResponse } from '../APIResponsesTypes';
+import { IPetAPIResponse } from '../APIResponsesTypes';
 import ErrorBoundary from './ErrorBoundary';
-
-const Modal = lazy(() => import('./Modal'));
 
 class Details extends Component<{ params: { id?: string } }> {
 	state = {
 		loading: true,
-		showModal: false,
 		animal: '',
 		breed: '',
 		city: '',
@@ -21,28 +18,22 @@ class Details extends Component<{ params: { id?: string } }> {
 
 	async componentDidMount() {
 		const res = await fetch(`https://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`);
-		const json = (await res.json()) as PetAPIResponse;
+		const json = (await res.json()) as IPetAPIResponse;
 		this.setState({
 			loading: false,
 			...json.pets[0],
 		});
 	}
 
-	toggleModal = () =>
-		this.setState({
-			showModal: !this.state.showModal,
-		});
-	adopt = () => (window.location.href = 'https://bit.ly/pet-adopt');
-
 	render() {
 		if (this.state.loading) {
-			return <h2>loading...</h2>;
+			return <h2 className="m-auto text-center">loading...</h2>;
 		}
-		const { animal, breed, city, state, description, name, images, showModal } = this.state;
+		const { breed, city, state, description, name, images } = this.state;
 
 		return (
 			<>
-				<div className='container mx-auto mt-8'>
+				<div className='container mx-auto'>
 					<div className='flex justify-center'>
 						<div className='flex flex-col md:flex-row h-full rounded-lg bg-white shadow-lg'>
 							<div className='w-1/2 p-6'>
@@ -52,13 +43,15 @@ class Details extends Component<{ params: { id?: string } }> {
 								<h5 className='text-gray-900 text-xl font-medium mb-2'>
 									<span>{name}</span>
 									<div className='flex space-x-4'>
-										<span>{breed}</span>
-										<span>
+										<span className='text-base mt-6'>{breed}</span>
+										<span className="before:content-['\2022__'] text-base mt-6">
 											{city}, {state}
 										</span>
 									</div>
 								</h5>
-								<p className='text-gray-700 text-base mb-4'>{description}</p>
+								<p className='text-gray-700 text-sm mb-4' style={{ color: '#74788d' }}>
+									{description}
+								</p>
 							</div>
 						</div>
 					</div>
